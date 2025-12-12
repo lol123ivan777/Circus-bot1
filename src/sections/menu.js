@@ -19,7 +19,7 @@ exports.showHome = (bot, msg) => {
             {
               text: "🎟 БИЛЕТЫ / ПРИЛОЖЕНИЕ",
               web_app: {
-                url: "https://ТВОЙ-URL.vercel.app"
+                url: "https://https://circus-nikulin-app.vercel.app"
               }
             }
           ]
