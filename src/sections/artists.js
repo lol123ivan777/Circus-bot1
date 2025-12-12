@@ -1,19 +1,26 @@
 const artists = require("../../data/artists.json");
 
-function showArtists(bot, msg, page = 0) {
-  const a = artists[page];
+const PER_PAGE = 5;
 
-  const text =
-    `🤹 *Артисты*\n\n` +
-    `*${a.title}*\n` +
-    `п/р ${a.lead}`;
+function showArtists(bot, msg, page = 0) {
+  const start = page * PER_PAGE;
+  const slice = artists.slice(start, start + PER_PAGE);
+
+  let text = "🤹 *Артисты*\n\n";
+
+  slice.forEach(a => {
+    text += `• *${a.title}*\n  п/р ${a.lead}\n\n`;
+  });
 
   const buttons = [];
 
-  if (page > 0) buttons.push({ text: "⬅️", callback_data: `artist_${page - 1}` });
-  if (page < artists.length - 1) buttons.push({ text: "➡️", callback_data: `artist_${page + 1}` });
+  if (page > 0)
+    buttons.push({ text: "⬅️ Назад", callback_data: `artists_${page - 1}` });
 
-  buttons.push({ text: "🏠", callback_data: "home" });
+  if (start + PER_PAGE < artists.length)
+    buttons.push({ text: "➡️ Вперёд", callback_data: `artists_${page + 1}` });
+
+  buttons.push({ text: "🏠 На главную", callback_data: "home" });
 
   bot.editMessageText(text, {
     chat_id: msg.chat.id,
