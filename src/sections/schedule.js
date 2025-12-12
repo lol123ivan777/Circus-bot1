@@ -3,9 +3,15 @@ const jan = require("../../data/schedule_january_2026.json");
 
 function render(list, title) {
   let text = `🎭 *${title}*\n\n`;
+
   list.forEach(d => {
-    text += `📅 ${d.day} — ${d.time}\n`;
+    const times = d.times && d.times.length
+      ? d.times.join(" / ")
+      : "ВЫХОДНОЙ";
+
+    text += `📅 ${d.day} — ${times}\n`;
   });
+
   return text;
 }
 
