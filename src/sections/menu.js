@@ -15,14 +15,12 @@ exports.showHome = (bot, msg) => {
             { text: "🤹 Артисты", callback_data: "artists" },
             { text: "📍 Контакты", callback_data: "contacts" }
           ],
-          [
-            {
-              {
-  text: "🎟 БИЛЕТЫ / ПРИЛОЖЕНИЕ",
-  web_app: {
-    url: "https://circus-nikulin-app.vercel.app"
+            [
+  {
+    text: "🎟 БИЛЕТЫ / ПРИЛОЖЕНИЕ",
+    web_app: { url: "https://circus-nikulin-app.vercel.app/" }
   }
-}
+]
               }
             }
           ]
