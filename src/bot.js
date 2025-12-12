@@ -33,30 +33,34 @@ bot.on("callback_query", query => {
   const msg = query.message;
   const data = query.data;
 
-  // Главная
+  // чтобы Telegram не думал, что мы умерли
+  bot.answerCallbackQuery(query.id).catch(() => {});
+
+  /* --- ГЛАВНАЯ --- */
   if (data === "home") return showHome(bot, msg);
 
-  // Новости: news_0, news_1 ...
+  /* --- НОВОСТИ --- */
+  if (data === "news") return showNews(bot, msg, 0);
   if (data.startsWith("news_")) {
-    const page = parseInt(data.split("_")[1], 10);
+    const page = Number(data.split("_")[1]);
     return showNews(bot, msg, page);
   }
 
-  // Расписание
+  /* --- РАСПИСАНИЕ --- */
+  if (data === "schedule") return showSchedule(bot, msg, "dec");
   if (data === "schedule_dec") return showSchedule(bot, msg, "dec");
   if (data === "schedule_jan") return showSchedule(bot, msg, "jan");
 
-  // Артисты: artists_0, artists_1 ...
+  /* --- АРТИСТЫ --- */
+  if (data === "artists") return showArtists(bot, msg, 0);
   if (data.startsWith("artists_")) {
-    const page = parseInt(data.split("_")[1], 10);
+    const page = Number(data.split("_")[1]);
     return showArtists(bot, msg, page);
   }
 
-  // Билеты
+  /* --- БИЛЕТЫ --- */
   if (data === "tickets") return showTickets(bot, msg);
 
-  // Контакты
+  /* --- КОНТАКТЫ --- */
   if (data === "contacts") return showContacts(bot, msg);
-
-  bot.answerCallbackQuery(query.id);
 });
